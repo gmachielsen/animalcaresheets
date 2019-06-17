@@ -1,0 +1,299 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stack - BootCamp Blog</title>
+    
+    {% block head_styles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock head_styles %}
+
+    {% block head_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% endblock head_scripts %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- Fixed masthead -->
+    <!--<nav class="navbar navbar-masthead navbar-default navbar-fixed-top">-->
+    <!--    <div class="container">-->
+    <!--        <div class="navbar-header">-->
+    <!--            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"-->
+    <!--                    aria-expanded="false" aria-controls="navbar">-->
+    <!--                <span class="sr-only">Toggle navigation</span>-->
+    <!--                <span class="icon-bar"></span>-->
+    <!--                <span class="icon-bar"></span>-->
+    <!--                <span class="icon-bar"></span>-->
+    <!--            </button>-->
+                <!--<a class="navbar-brand" href="{% url 'posts_list' %}"><img src="{% static '' %}"></a>-->
+    <!--            </div>-->
+    <!--        <div id="navbar" class="navbar-collapse collapse">-->
+    <!--            <ul class="nav navbar-nav navbar-right">-->
+    <!--                {% if user.is_authenticated %}-->
+    <!--                <li><a href="{% url 'add_post' %}"><i class="fa fa-plus"></i> New Post</a></li>-->
+    <!--                <li><a class="profileimage"><img src="{{ MEDIA_URL}}{{ post.author.profile.image }}"></a></li>-->
+    <!--                <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a></li>-->
+    <!--                {% else %}-->
+    <!--                <li><a href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>-->
+    <!--                <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Login</a></li>-->
+    <!--                {% endif %}-->
+    <!--            </u>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</nav>-->
+    
+    <div class="mobile-container">
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="{% url 'posts_list' %}" class="active">Home</a>
+  <div id="myLinks">
+     {% if user.is_authenticated %}
+                    <li><a href="{% url 'add_post' %}"><i class="fa fa-plus"></i> New Post</a></li>
+                    <li><a class="profileimage"><img src="{{ MEDIA_URL}}{{ post.author.profile.image }}"></a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
+                    <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Login</a></li>
+                    {% endif %}
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+ 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <!--blogpost entries-->
+                        {% block content %}
+                        {% endblock %}
+                        <!--blogpost entries-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!--<footer>-->
+   <!--                         <div class="container">-->
+   <!--                             <div class="row">-->
+   <!--                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 first-widget-area">-->
+   <!--                                     <div class="widget_text footer_widget">-->
+   <!--                                         <div class="textwidget custom-html-widget">-->
+   <!--                                             <p>Ad Machielsen</p>-->
+   <!--                                         </div>-->
+   <!--                                     </div>-->
+   <!--                                     <div class="footer_contact">-->
+   <!--                                         <div class="contact-details">-->
+   <!--                                           <br>-->
+   <!--                                                 <i class="fa fa-envelope-o" style="font-size:18px"></i>&nbsp;-->
+   <!--                                                 <a href="mailto:g.machielsen@gmail.com">g.machielsen@gmail.com</a>-->
+   <!--                                                 <br>-->
+   <!--                                                 <i class="fab fa-whatsapp" style="font-size:21px"></i>&nbsp;-->
+   <!--                                                 <a href="https://wa.me/0031611864118">WhatsApp</a>-->
+   <!--                                                 <br>-->
+   <!--                                                 <br>-->
+   <!--                                                   KvK nummer:-->
+   <!--                                                 <a href="https://www.kvk.nl/">000000</a>-->
+   <!--                                             <br>-->
+   <!--                                           BTW-nummer: NL00000000-->
+   <!--                                         </div>-->
+   <!--                                     </div>-->
+   <!--                                     <div class="footer_social">-->
+   <!--                                         <div class="socials">-->
+   <!--                                             <a href="https://www.facebook.com/Ad-Machielsen-782381998784479/?modal=admin_todo_tour" target="_blank">-->
+   <!--                                                 <span><i class="fab fa-facebook"></i></span>-->
+   <!--                                             </a>-->
+   <!--                                             <a href="https://www.instagram.com/admachielsen/" target="_blank">-->
+   <!--                                                 <span><i class="fab fa-instagram"></i></span>-->
+   <!--                                             </a>-->
+   <!--                                         </div>-->
+   <!--                                     </div>-->
+   <!--                                 </div>-->
+   <!--                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">-->
+   <!--                                     <div class="ons">-->
+   <!--                                         <h5 class="over ons">-->
+   <!--                                             <span>Over ons</span>-->
+   <!--                                         </h5>-->
+   <!--                                         <div class="ons_text">-->
+   <!--                                             <p>Bedankt voor uw bezoek aan de website van Ad Machielsen!</p>-->
+   <!--                                         </div>-->
+   <!--                                     </div>-->
+   <!--                                 </div>-->
+   <!--                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">-->
+   <!--                                     <div class="footer_links">-->
+   <!--                                         <h5 class="links">-->
+   <!--                                             <span>Links</span>-->
+   <!--                                         </h5>-->
+   <!--                                         <div class="menu_footer" style="float: left;">-->
+   <!--                                             <ul id="menu-footer" class="menu"  >-->
+   <!--                                                 <li id="menu-item-3658" class="menu-item">-->
+   <!--                                                     <a href="muurschilderingen.html" data-ps2id-api="true">Muurschilderingen</a>-->
+   <!--                                                 </li>-->
+   <!--                                                 <li id="menu-item-3657" class="menu-item">-->
+   <!--                                                     <a href="schilderles.html" data-ps2id-api="true">Schilderles</a>-->
+   <!--                                                 </li>-->
+   <!--                                                 <li id="menu-item-3656" class="menu-item ">-->
+   <!--                                                     <a href="biografie.html" data-ps2id-api="true">Biografie</a>-->
+   <!--                                                 </li>-->
+   <!--                                                 <li id="menu-item-3623" class="menu-item">-->
+   <!--                                                     <a href="contact.html" data-ps2id-api="true">Contact</a>-->
+   <!--                                                 </li>-->
+   <!--                                             </ul>-->
+   <!--                                         </div>-->
+   <!--                                     </div>-->
+   <!--                                 </div>-->
+   <!--                             </div>-->
+   <!--                         </div>-->
+   <!--             </footer>-->
+                <!-- Footer -->
+<footer class="page-footer font-small unique-color-dark">
+
+  <div style="background-color: #6351ce;">
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row py-4 d-flex align-items-center">
+
+        <!-- Grid column -->
+       
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+ 
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+
+    </div>
+  </div>
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left mt-5">
+
+    <!-- Grid row -->
+    <div class="row mt-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+        <!-- Content -->
+        <h6 class="text-uppercase font-weight-bold">Reptielenzorgwijzer</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>Deze website heeft als doel om kennis over te brengen over het houden van reptielen in gevangenschap. Wij danken u voor uw bezoek.</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Webwinkels</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="https://www.blue-lagoon.nl">Blue Lagoon</a>
+        </p>
+        <p>
+          <a href="https://www.terramania.nl/">Terramania</a>
+        </p>
+        <p>
+          <a href="#!"></a>
+        </p>
+        <p>
+          <a href="#!"></a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Beurzen</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="https://www.terraristik.com/tb/list_classifieds.php">Terraristik</a>
+        </p>
+        <p>
+          <a href="https://www.reptilica.nl/">Reptilica</a>
+        </p>
+        <p>
+          <a href=""></a>
+        </p>
+        <p>
+          <a href="#!"></a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i> Prinsenboschlaan 32, 4841 MA Prinsenbeek</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> g.machielsen@gmail.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> + 06-11864118</p>
+        <p>
+          <!--<i class="fas fa-print mr-3"></i></p>-->
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
+  <div class="copyright">
+    <div class="container">
+
+      <div class="row text-center">
+        <p>Copyright © 2019 copyright: reptielenzorgwijzer.nl</p>
+      </div>
+
+    </div>
+  </div>
+    
+    
+    {% block foot_scripts %}
+    
+    {% endblock foot_scripts %}
+
+    
+</body>
+</html>
